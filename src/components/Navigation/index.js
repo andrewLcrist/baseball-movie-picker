@@ -16,12 +16,15 @@ const Navigation = () => (
 );
 
 const NavigationAuth = () => (
-  <ul>
+  <ul className="header">
     <li>
       <Link to={ROUTES.HOME}>Home</Link>
     </li>
     <li>
       <Link to={ROUTES.ACCOUNT}>Account</Link>
+    </li>
+    <li>
+      <Link to={ROUTES.MOVIES}>Movies</Link>
     </li>
     <li>
       <SignOutWrapper />
@@ -30,7 +33,7 @@ const NavigationAuth = () => (
 );
 
 const NavigationNonAuth = () => (
-  <ul>
+  <ul className="header">
     <li>
       <Link to={ROUTES.HOME}>Home</Link>
     </li>
