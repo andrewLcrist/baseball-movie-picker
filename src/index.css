@@ -36,6 +36,7 @@ code {
   right: 5vw;
   top: 5vh;
   bottom: 5vh;
+  overflow: scroll;
 }
 
 .modal-backdrop {
@@ -60,7 +61,22 @@ code {
   z-index: 1;
 }
 
+.actor-card-content {
+  margin: .5rem;
+}
+
 .actor-card-container {
   display: flex;
   flex-direction: row;
+  overflow-y: auto;
+}
+
+.actor-card-profile-container {
+  width: 10rem;
+  height: 15rem;
+}
+
+.actor-card-profile {
+  width: 100%;
+  height: 100%;
 }
