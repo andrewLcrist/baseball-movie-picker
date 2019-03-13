@@ -4,3 +4,9 @@ export const setUser = (userEmail) => {
     userEmail: userEmail
   }
 }
+
+export const removeUser = () => {
+  return {
+    type: 'REMOVE_USER'
+  }
+}

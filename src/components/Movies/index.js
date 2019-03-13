@@ -7,6 +7,7 @@ import MovieModal from '../MovieModal'
 import { connect } from 'react-redux';
 import { currentUser, doAuth, baseballMovies} from '../Firebase/firebase';
 import {setMovieData} from '../../Actions/movieDataActions'
+import * as ROUTES from '../../constants/routes';
 
 class MoviesPageComponent extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class MoviesPageComponent extends Component {
   }
 
   componentDidMount = () => {
+    !currentUser() && this.props.history.push(ROUTES.SIGN_IN)
     baseballMovies().on('value', snapshot => {
       this.props.setMovieData(snapshot.val())
     })
@@ -35,7 +37,8 @@ class MoviesPageComponent extends Component {
 }
 
 const mapStateToProps = state => ({
-  baseballMovies: state.movieData.movies
+  baseballMovies: state.movieData.movies,
+  admin: state.admin
 });
 
 const mapDispatchToProps = dispatch => ({

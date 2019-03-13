@@ -1,14 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
+import { withRouter } from 'react-router-dom';
+
+import { currentUser, doAuth, baseballMovies} from '../Firebase/firebase';
 
 import SignOutWrapper from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 
-const Navigation = () => (
+const Navigation = (props) => {
+  return(
   <div>
-        <NavigationAuth /> : <NavigationNonAuth />
-  </div>
-);
+        {currentUser() ? <NavigationAuth /> : <NavigationNonAuth />}
+  </div>)
+};
 
 const NavigationAuth = () => (
   <ul className="header">
@@ -38,4 +45,18 @@ const NavigationNonAuth = () => (
   </ul>
 );
 
-export default Navigation;
+const mapStateToProps = state => ({
+  admin: state.admin
+});
+
+const NavigationPage =  compose(
+  connect(
+    mapStateToProps
+  ),
+  withRouter,
+  withFirebase,
+)(Navigation);
+
+export default NavigationPage;
+
+export { Navigation };

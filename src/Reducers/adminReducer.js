@@ -7,6 +7,11 @@ export default function adminReducer(state = {}, action) {
         ...state,
         userEmail: action.userEmail
       }
+    case 'REMOVE_USER':
+      return {
+        ...state,
+        userEmail: ''
+      }
     default:
       return state
   }

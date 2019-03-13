@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import {doSignOut, baseballMovies} from '../Firebase/firebase';
+import { connect } from 'react-redux';
+import {removeUser} from '../../Actions/userActions'
 
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
@@ -14,6 +16,7 @@ class SignOutButton extends Component {
 
   signOut = () => {
     doSignOut()
+    this.props.signOut()
     this.props.history.push('/')
   }
 
@@ -26,7 +29,18 @@ class SignOutButton extends Component {
   }
 };
 
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+  signOut: () => dispatch(removeUser())
+})
+
 const SignOutWrapper = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withRouter,
   withFirebase,
 )(SignOutButton);
