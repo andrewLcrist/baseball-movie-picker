@@ -24,24 +24,11 @@ class MoviesPageComponent extends Component {
     })
   }
 
-  openModal = (movie) => {
-    this.setState({showModal: true, movieModal: movie})
-  }
-
-  closeModal = () => {
-    this.setState({showModal: false, movieModal: {}})
-  }
-
   render() {
     return(
       <div className="movie-container">
-        {this.props.baseballMovies && Object.values(this.props.baseballMovies).map((movie, i) => <MoviePoster key={movie + `-` + i} openModal={this.openModal} movie={movie}/>)}
-        {this.state.showModal &&
-          <MovieModal
-            closeModal={this.closeModal}
-            movie={this.state.movieModal}
-          />
-        }
+        {this.props.baseballMovies && Object.values(this.props.baseballMovies).map((movie, i) => <MoviePoster key={movie + `-` + i} poster={movie.poster_path} movieTitle={movie.title}/>)}
+
       </div>
     )
   }

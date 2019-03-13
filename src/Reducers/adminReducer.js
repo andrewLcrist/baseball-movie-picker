@@ -8,9 +8,6 @@ export default function adminReducer(state = {}, action) {
         userEmail: action.userEmail
       }
     default:
-      return {
-        ...state,
-        piece: 'doody'
-      }
+      return state
   }
 }

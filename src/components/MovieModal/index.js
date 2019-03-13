@@ -2,48 +2,89 @@ import React, { Component } from 'react';
 import { filter } from 'lodash';
 import ActorCard from '../ActorCard'
 import YouTube from 'react-youtube';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
-const MovieModal = ({closeModal, movie}) => {
-
-  const director = filter(movie.cast.crew, { job: 'Director' }).map(e => e.name).join(', ');
-  const opts = {
-    playerVars: {
-      autoplay: 0,
-      loop: 1,
-      controls: 1,
-      rel: 0,
-      playsinline: 0,
-      modestbranding: 1,
-      iv_load_policy: 3,
-      width: '5rem'
+class MovieModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movie: {}
     }
   }
 
-  const runtimeHours = Math.floor(movie.runtime/60)
-  const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
-  const runtimeMinutes = movie.runtime % 60
-
-  return(
-      <div className="movie-modal">
-      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/w500/` + movie.backdrop_path} />
-        <div className="movie-modal-content-container">
-        <div className="movie-modal-header-container">
-          <h1 className="movie-title">{movie.title}</h1>
-          <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>
-        </div>
-        <div className="movie-modal-top-container">
-          <div className="movie-details-container">
-            <div>Overview: {movie.overview}</div>
-            <div>Director: {director}</div>
-          </div>
-        </div>
-        <div className="actor-card-container">
-        {Object.values(movie.cast.cast).map(actor => <ActorCard actor={actor}/>)}
-        </div>
-        </div>
-        <div className="modal-backdrop" onClick={() => closeModal()}></div>
-      </div>
-    )
+  static getDerivedStateFromProps(props, state) {
+    let movie = window.location.href.split('movie/')[1]
+    let movieIndex = Object.keys(props.baseballMovies).map(thing => thing.replace(/[^\w\s]/gi, '').toLowerCase() === movie.replace(/[^\w\s]/gi, '').toLowerCase()).indexOf(true)
+    if (Object.values(props.baseballMovies)[movieIndex] !== state.movie) {
+      return {
+        movie: Object.values(props.baseballMovies)[movieIndex],
+      };
     }
 
-export default MovieModal;
+    return null;
+  }
+
+  render() {
+    const director = filter(this.state.movie.cast.crew, { job: 'Director' }).map(e => e.name).join(', ');
+      const opts = {
+        playerVars: {
+          autoplay: 0,
+          loop: 1,
+          controls: 1,
+          rel: 0,
+          playsinline: 0,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          width: '5rem'
+        }
+      }
+
+      const runtimeHours = Math.floor(this.state.movie.runtime/60)
+      const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
+      const runtimeMinutes = this.state.movie.runtime % 60
+
+    return(
+      <div className="movie-modal">
+      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/w500/` + this.state.movie.backdrop_path} />
+              <div className="movie-modal-content-container">
+              <div className="movie-modal-header-container">
+                <h1 className="movie-title">{this.state.movie.title}</h1>
+                <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>
+              </div>
+              <div className="movie-modal-top-container">
+                <div className="movie-details-container">
+                  <div>Overview: {this.state.movie.overview}</div>
+                  <div>Director: {director}</div>
+                </div>
+              </div>
+              <div className="actor-card-container">
+              {Object.values(this.state.movie.cast.cast).map(actor => <ActorCard actor={actor}/>)}
+              </div>
+              </div>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  baseballMovies: state.movieData.movies
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+const MovieModalPage =  compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRouter,
+  withFirebase,
+)(MovieModal);
+
+export default MovieModalPage;
+
+export { MovieModal };

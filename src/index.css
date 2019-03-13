@@ -28,13 +28,6 @@ code {
 }
 
 .movie-modal {
-  width: 90vw;
-  height: 90vh;
-  position: fixed;
-  left: 5vw;
-  right: 5vw;
-  top: 5vh;
-  bottom: 5vh;
   overflow: scroll;
   background-color: black;
   color: white;

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import * as ROUTES from '../../constants/routes';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
 class MoviePoster extends Component {
   constructor(props) {
@@ -12,13 +16,20 @@ class MoviePoster extends Component {
     return (
       <div className="movie-poster-container">
         <img
-          onClick={() => this.props.openModal(this.props.movie)}
+          onClick={() => this.props.history.push(`${ROUTES.MOVIE}/${this.props.movieTitle.replace(/\s/g, '')}`)}
           className="movie-poster"
-          src={`https://image.tmdb.org/t/p/w500/` + this.props.movie.poster_path}
+          src={`https://image.tmdb.org/t/p/w500/` + this.props.poster}
         />
       </div>
     );
   }
 }
 
-export default MoviePoster;
+const MoviePosterPage =  compose(
+  withRouter,
+  withFirebase,
+)(MoviePoster);
+
+export default MoviePosterPage;
+
+export { MoviePoster };
