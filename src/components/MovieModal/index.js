@@ -15,26 +15,31 @@ const MovieModal = ({closeModal, movie}) => {
       playsinline: 0,
       modestbranding: 1,
       iv_load_policy: 3,
-      width: '100%'
+      width: '5rem'
     }
   }
 
+  const runtimeHours = Math.floor(movie.runtime/60)
+  const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
+  const runtimeMinutes = movie.runtime % 60
+
   return(
       <div className="movie-modal">
-        <div className="modal-content-container">
-          <h1>{movie.title}</h1>
-          <div>Overview: {movie.overview}</div>
-          <div>Director: {director}</div>
-          <div>Runtime: {movie.runtime}</div>
-          <div className="actor-card-container">
-          {Object.values(movie.cast.cast).map(actor => <ActorCard actor={actor}/>)}
+      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/w500/` + movie.backdrop_path} />
+        <div className="movie-modal-content-container">
+        <div className="movie-modal-header-container">
+          <h1 className="movie-title">{movie.title}</h1>
+          <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>
+        </div>
+        <div className="movie-modal-top-container">
+          <div className="movie-details-container">
+            <div>Overview: {movie.overview}</div>
+            <div>Director: {director}</div>
           </div>
-          <YouTube
-            id="montage"
-            videoId={movie.trailer}
-            opts={opts}
-          />
-          <img src={`https://image.tmdb.org/t/p/w500/` + movie.backdrop_path} />
+        </div>
+        <div className="actor-card-container">
+        {Object.values(movie.cast.cast).map(actor => <ActorCard actor={actor}/>)}
+        </div>
         </div>
         <div className="modal-backdrop" onClick={() => closeModal()}></div>
       </div>

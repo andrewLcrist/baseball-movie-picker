@@ -11,25 +11,30 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
-class Firebase {
-  constructor() {
-    app.initializeApp(config);
 
-    this.auth = app.auth();
-    this.db = app.database();
-  }
+  const thing = app.initializeApp(config);
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  const db = thing.database()
+  const auth = thing.auth()
 
-  doSignOut = () => this.auth.signOut();
+  export const doSignInWithEmailAndPassword = (email, password) =>
+    auth.signInWithEmailAndPassword(email, password);
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+  export const doSignOut = () => auth.signOut();
 
-  doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+  export const doPasswordReset = email => auth.sendPasswordResetEmail(email);
 
-  baseballMovies = () => this.db.ref('baseballMovies/');
-}
+  export const doPasswordUpdate = password =>
+    auth.currentUser.updatePassword(password);
 
-export default Firebase;
+  export const baseballMovies = () => db.ref('baseballMovies/');
+
+  export const doAuth = () => auth.onAuthStateChanged(user => {
+    if(user) {
+      console.log('dingus')
+    } else {
+      return 'No one signed in'
+    }
+  })
+
+  export const currentUser = () => auth.currentUser

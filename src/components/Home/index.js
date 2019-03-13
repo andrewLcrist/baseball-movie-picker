@@ -1,8 +1,6 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-import { withAuthorization } from '../Session';
-
 const HomePage = () => {
 
   const opts = {
@@ -19,15 +17,15 @@ const HomePage = () => {
 }
   return (
   <div id="homepage-container">
-  <YouTube
-    id="montage"
-    videoId={'ItYScNYRA5w'}
-    opts={opts}
-  />
+    <YouTube
+      id="montage"
+      videoId={'ItYScNYRA5w'}
+      opts={opts}
+    />
   </div>
 );
 }
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(HomePage);
+export default HomePage;

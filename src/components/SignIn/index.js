@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
+import {doSignInWithEmailAndPassword} from '../Firebase/firebase';
+import {setUser} from '../../Actions/userActions'
+import { connect } from 'react-redux';
 
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
@@ -31,8 +33,8 @@ class SignInFormBase extends Component {
   onSubmit = event => {
     const { email, password } = this.state;
 
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
+    doSignInWithEmailAndPassword(email, password)
+      .then(thing => this.props.setUser(thing.user.email))
       .then(() => {
         this.setState({
           username: '',
@@ -85,7 +87,18 @@ class SignInFormBase extends Component {
   }
 }
 
-const SignInForm = compose(
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+      setUser: (userEmail) => dispatch(setUser(userEmail)),
+});
+
+const SignInForm =  compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withRouter,
   withFirebase,
 )(SignInFormBase);

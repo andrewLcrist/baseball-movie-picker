@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
+import {doSignOut, baseballMovies} from '../Firebase/firebase';
 
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
@@ -13,7 +13,7 @@ class SignOutButton extends Component {
     }
 
   signOut = () => {
-    this.props.firebase.doSignOut()
+    doSignOut()
     this.props.history.push('/')
   }
 

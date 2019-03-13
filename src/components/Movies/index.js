@@ -4,6 +4,9 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import MoviePoster from '../MoviePoster'
 import MovieModal from '../MovieModal'
+import { connect } from 'react-redux';
+import { currentUser, doAuth, baseballMovies} from '../Firebase/firebase';
+import {setMovieData} from '../../Actions/movieDataActions'
 
 class MoviesPageComponent extends Component {
   constructor(props) {
@@ -13,11 +16,11 @@ class MoviesPageComponent extends Component {
       showModal: false,
       movieModal: {}
     }
-    }
+  }
 
   componentDidMount = () => {
-    this.props.firebase.baseballMovies().on('value', snapshot => {
-      this.setState({movies: Object.values(snapshot.val())})
+    baseballMovies().on('value', snapshot => {
+      this.props.setMovieData(snapshot.val())
     })
   }
 
@@ -32,7 +35,7 @@ class MoviesPageComponent extends Component {
   render() {
     return(
       <div className="movie-container">
-        {this.state.movies !== [] && this.state.movies.map(movie => <MoviePoster openModal={this.openModal} movie={movie}/>)}
+        {this.props.baseballMovies && Object.values(this.props.baseballMovies).map((movie, i) => <MoviePoster key={movie + `-` + i} openModal={this.openModal} movie={movie}/>)}
         {this.state.showModal &&
           <MovieModal
             closeModal={this.closeModal}
@@ -44,7 +47,19 @@ class MoviesPageComponent extends Component {
   }
 }
 
-const MoviesPage = compose(
+const mapStateToProps = state => ({
+  baseballMovies: state.movieData.movies
+});
+
+const mapDispatchToProps = dispatch => ({
+  setMovieData: (movies) => dispatch(setMovieData(movies))
+});
+
+const MoviesPage =  compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withRouter,
   withFirebase,
 )(MoviesPageComponent);
