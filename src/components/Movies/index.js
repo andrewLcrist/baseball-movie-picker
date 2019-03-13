@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import MoviePoster from '../MoviePoster'
-import MovieModal from '../MovieModal'
+import MovieDetail from '../MovieDetail'
 import { connect } from 'react-redux';
 import { currentUser, doAuth, baseballMovies} from '../Firebase/firebase';
 import {setMovieData} from '../../Actions/movieDataActions'

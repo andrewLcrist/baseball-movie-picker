@@ -11,7 +11,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import MoviesPage from '../Movies';
-import MovieModal from '../MovieModal';
+import MovieDetail from '../MovieDetail';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -34,7 +34,7 @@ const App = ({store, persistor}) => (
           />
           <Route path={ROUTES.HOME} component={HomePage} />
           <Route path={ROUTES.MOVIES} component={MoviesPage} />
-          <Route path={ROUTES.MOVIE} component={MovieModal} />
+          <Route path={ROUTES.MOVIE} component={MovieDetail} />
           <Route path={ROUTES.ACCOUNT} component={AccountPage} />
           <Route path={ROUTES.ADMIN} component={AdminPage} />
         </div>

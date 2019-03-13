@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 
-class MovieModal extends Component {
+class MovieDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +48,7 @@ class MovieModal extends Component {
 
     return(
       <div className="movie-modal">
-      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/w500/` + this.state.movie.backdrop_path} />
+      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/original` + this.state.movie.backdrop_path} />
               <div className="movie-modal-content-container">
               <div className="movie-modal-header-container">
                 <h1 className="movie-title">{this.state.movie.title}</h1>
@@ -76,15 +76,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-const MovieModalPage =  compose(
+const MovieDetailPage =  compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   ),
   withRouter,
   withFirebase,
-)(MovieModal);
+)(MovieDetail);
 
-export default MovieModalPage;
+export default MovieDetailPage;
 
-export { MovieModal };
+export { MovieDetail };
