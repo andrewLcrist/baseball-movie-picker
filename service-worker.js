@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/baseball-movie-picker/precache-manifest.a5da721eda0ef68cfedd924222098474.js"
+  "/baseball-movie-picker/precache-manifest.2d568b38358fb7e2a11b0314a4dcf264.js"
 );
 
 workbox.clientsClaim();
