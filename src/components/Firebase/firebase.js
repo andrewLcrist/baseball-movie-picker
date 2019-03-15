@@ -12,13 +12,22 @@ const config = {
 };
 
 
-  const thing = app.initializeApp(config);
+  const firebase = app.initializeApp(config);
 
-  const db = thing.database()
-  const auth = thing.auth()
+  const db = firebase.database()
+  const auth = firebase.auth()
 
-  export const doSignInWithEmailAndPassword = (email, password) =>
-    auth.signInWithEmailAndPassword(email, password);
+
+  export const doSignInWithEmailAndPassword = (email, password) => {
+    auth.setPersistence('session')
+    .then(function() {
+      return auth.signInWithEmailAndPassword(email, password)
+    })
+    .catch(function(error) {
+      console.log('auth error', error);
+      var errorCode = error.code;
+      var errorMessage = error.message;
+  });}
 
   export const doSignOut = () => auth.signOut();
 
@@ -36,5 +45,17 @@ const config = {
       return 'No one signed in'
     }
   })
+
+  export const addMovieToDatabase = (title, movie) => {
+    db.ref('baseballMovies/').child(title).set({
+      movie
+    }, function(error) {
+    if (error) {
+      console.log('error', error);
+    } else {
+      console.log('success');
+    }
+  })
+  };
 
   export const currentUser = () => auth.currentUser

@@ -6,4 +6,5 @@ export const ADMIN = '/admin';
 export const SEEN_IT_SURVEY = '/seenItSurvey'
 export const MOVIES = '/movies';
 export const MOVIE = '/movie';
+export const ADD_MOVIE = '/addMovie'
 export const PASSWORD_FORGET = '/pw-forget';

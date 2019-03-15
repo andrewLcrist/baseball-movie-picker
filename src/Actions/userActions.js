@@ -10,3 +10,11 @@ export const removeUser = () => {
     type: 'REMOVE_USER'
   }
 }
+
+export const handleUserSignIn = (email, password) => {
+  return {
+    type: 'HANDLE_USER_SIGN_IN',
+    email: email,
+    password: password
+  }
+}

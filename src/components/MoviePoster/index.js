@@ -13,6 +13,10 @@ class MoviePoster extends Component {
   }
 
   render() {
+    const runtimeHours = Math.floor(this.props.runtime/60)
+    const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
+    const runtimeMinutes = this.props.runtime % 60
+
     return (
       <div className="movie-poster-container">
         <img
@@ -20,6 +24,14 @@ class MoviePoster extends Component {
           className="movie-poster"
           src={`https://image.tmdb.org/t/p/w500/` + this.props.poster}
         />
+        <div className="movie-poster-details-container">
+        <p>{this.props.movieTitle}</p>
+        <p>{this.props.releaseDate.split('-')[0]}</p>
+        {this.props.runtime &&
+        <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>
+        }
+        <p>Watch Trailer</p>
+        </div>
       </div>
     );
   }

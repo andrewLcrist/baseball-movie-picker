@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import {doSignInWithEmailAndPassword} from '../Firebase/firebase';
-import {setUser} from '../../Actions/userActions'
+import {setUser, handleUserSignIn} from '../../Actions/userActions'
 import { connect } from 'react-redux';
 
 import { PasswordForgetLink } from '../PasswordForget';
@@ -31,25 +30,18 @@ class SignInFormBase extends Component {
     }
 
   onSubmit = event => {
+    event.preventDefault();
     const { email, password } = this.state;
 
-    doSignInWithEmailAndPassword(email, password)
-      .then(thing => this.props.setUser(thing.user.email))
-      .then(() => {
-        this.setState({
-          username: '',
-          email: '',
-          passwordOne: '',
-          passwordTwo: '',
-          error: null,
-        });
-        this.props.history.push(ROUTES.HOME);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-
-    event.preventDefault();
+    this.props.handleUserSignIn(email, password)
+    this.setState({
+      username: '',
+      email: '',
+      passwordOne: '',
+      passwordTwo: '',
+      error: null,
+    })
+    this.props.history.push(ROUTES.HOME)
   };
 
   onChange = event => {
@@ -92,6 +84,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
       setUser: (userEmail) => dispatch(setUser(userEmail)),
+      handleUserSignIn: (email, password) => dispatch(handleUserSignIn(email, password)),
 });
 
 const SignInForm =  compose(

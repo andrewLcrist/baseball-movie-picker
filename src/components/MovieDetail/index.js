@@ -20,7 +20,7 @@ class MovieDetail extends Component {
     let movieIndex = Object.keys(props.baseballMovies).map(thing => thing.replace(/[^\w\s]/gi, '').toLowerCase() === movie.replace(/[^\w\s]/gi, '').toLowerCase()).indexOf(true)
     if (Object.values(props.baseballMovies)[movieIndex] !== state.movie) {
       return {
-        movie: Object.values(props.baseballMovies)[movieIndex],
+        movie: Object.values(props.baseballMovies)[movieIndex].movie,
       };
     }
 
@@ -28,7 +28,7 @@ class MovieDetail extends Component {
   }
 
   render() {
-    const director = filter(this.state.movie.cast.crew, { job: 'Director' }).map(e => e.name).join(', ');
+    const director = filter(this.state.movie.credits.crew, { job: 'Director' }).map(e => e.name).join(', ');
       const opts = {
         playerVars: {
           autoplay: 0,
@@ -42,26 +42,26 @@ class MovieDetail extends Component {
         }
       }
 
-      const runtimeHours = Math.floor(this.state.movie.runtime/60)
+      const runtimeHours = Math.floor(this.state.movie.movieData.runtime/60)
       const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
       const runtimeMinutes = this.state.movie.runtime % 60
 
     return(
       <div className="movie-modal">
-      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/original` + this.state.movie.backdrop_path} />
+      <img className="movie-modal-image-header" src={`https://image.tmdb.org/t/p/original` + this.state.movie.movieData.backdrop_path} />
               <div className="movie-modal-content-container">
               <div className="movie-modal-header-container">
-                <h1 className="movie-title">{this.state.movie.title}</h1>
+                <h1 className="movie-title">{this.state.movie.movieData.title}</h1>
                 <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>
               </div>
               <div className="movie-modal-top-container">
                 <div className="movie-details-container">
-                  <div>Overview: {this.state.movie.overview}</div>
+                  <div>Overview: {this.state.movie.movieData.overview}</div>
                   <div>Director: {director}</div>
                 </div>
               </div>
               <div className="actor-card-container">
-              {Object.values(this.state.movie.cast.cast).map(actor => <ActorCard actor={actor}/>)}
+              {Object.values(this.state.movie.credits.cast).map(actor => <ActorCard actor={actor}/>)}
               </div>
               </div>
       </div>

@@ -114,3 +114,12 @@ code {
 .crew-text-container {
   text-align: center;
 }
+
+#homepage-container {
+  width: 100vw;
+}
+
+.movie-poster-container {
+  display: flex;
+  flex-direction: column;
+}
