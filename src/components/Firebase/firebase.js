@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import * as ROUTES from '../../constants/routes';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,13 +16,13 @@ const config = {
   const firebase = app.initializeApp(config);
 
   const db = firebase.database()
-  const auth = firebase.auth()
+  export const auth = firebase.auth()
 
 
   export const doSignInWithEmailAndPassword = (email, password) => {
     auth.setPersistence('session')
     .then(function() {
-      return auth.signInWithEmailAndPassword(email, password)
+      auth.signInWithEmailAndPassword(email, password).then((user) => {return user})
     })
     .catch(function(error) {
       console.log('auth error', error);
@@ -38,13 +39,19 @@ const config = {
 
   export const baseballMovies = () => db.ref('baseballMovies/');
 
-  export const doAuth = () => auth.onAuthStateChanged(user => {
-    if(user) {
-      console.log('dingus')
-    } else {
-      return 'No one signed in'
-    }
-  })
+  export const doAuth = () => {
+    let userLoggedIn
+    return auth.onAuthStateChanged(user => {
+      console.log('doAuth user', user);
+      if(user) {
+        userLoggedIn = false
+        return true
+      } else {
+        userLoggedIn = false
+        return false
+      }
+    })
+  }
 
   export const addMovieToDatabase = (title, movie) => {
     db.ref('baseballMovies/').child(title).set({

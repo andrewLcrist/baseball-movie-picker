@@ -13,7 +13,7 @@ import * as ROUTES from '../../constants/routes';
 const Navigation = (props) => {
   return(
   <div>
-        {currentUser() ? <NavigationAuth /> : <NavigationNonAuth />}
+        {props.admin.userEmail ? <NavigationAuth /> : <NavigationNonAuth />}
   </div>)
 };
 
@@ -37,7 +37,7 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <ul className="header">
     <li>
-      <Link to={ROUTES.HOME}>Home</Link>
+      <Link to={ROUTES.HOME}>Home Page</Link>
     </li>
     <li>
       <Link to={ROUTES.SIGN_IN}>Sign In</Link>

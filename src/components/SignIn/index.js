@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
+import { doAuth } from '../Firebase/firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
@@ -33,15 +34,19 @@ class SignInFormBase extends Component {
     event.preventDefault();
     const { email, password } = this.state;
 
-    this.props.handleUserSignIn(email, password)
-    this.setState({
-      username: '',
-      email: '',
-      passwordOne: '',
-      passwordTwo: '',
-      error: null,
-    })
-    this.props.history.push(ROUTES.HOME)
+    const user = this.props.handleUserSignIn(email, password)
+    if(user.email) {
+      this.setState({
+        username: '',
+        email: '',
+        password: '',
+        passwordOne: '',
+        passwordTwo: '',
+        error: null
+      })
+      this.props.setUser(user.email)
+      this.props.history.push(ROUTES.HOME)
+    }
   };
 
   onChange = event => {

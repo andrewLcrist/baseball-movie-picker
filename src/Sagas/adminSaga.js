@@ -5,8 +5,6 @@ export function* watchHandleUserSignIn() {
   yield takeLatest("HANDLE_USER_SIGN_IN", handleUserSignIn);
 }
 
-
 export function* handleUserSignIn(action) {
-  const user = doSignInWithEmailAndPassword(action.email, action.password)
-  console.log(currentUser());
+  doSignInWithEmailAndPassword(action.email, action.password)
 }

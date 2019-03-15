@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 class Account extends Component {
 
   componentDidMount() {
-    !currentUser() && this.props.history.push(ROUTES.SIGN_IN)
+    !currentUser() && this.props.history.push(ROUTES.SIGN_IN) 
   }
 
   render() {

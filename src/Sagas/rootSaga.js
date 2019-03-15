@@ -6,6 +6,6 @@ export default function* rootSaga() {
   yield all([
     watchSearchMovies(),
     watchAddMovieToDatabase(),
-    watchHandleUserSignIn(),
+    watchHandleUserSignIn()
   ])
 }
