@@ -19,13 +19,15 @@ class MoviePoster extends Component {
 
     return (
       <div className="movie-poster-container">
+      <div className="poster-image-container">
         <img
           onClick={() => this.props.history.push(`${ROUTES.MOVIE}/${this.props.movieTitle.replace(/\s/g, '')}`)}
           className="movie-poster"
           src={`https://image.tmdb.org/t/p/w500/` + this.props.poster}
         />
+        </div>
         <div className="movie-poster-details-container">
-        <p>{this.props.movieTitle}</p>
+        <p className="poster-movie-title">{this.props.movieTitle}</p>
         <p>{this.props.releaseDate.split('-')[0]}</p>
         {this.props.runtime &&
         <div>{runtimeHours} {runtimeHourLabel} {runtimeMinutes} minutes</div>

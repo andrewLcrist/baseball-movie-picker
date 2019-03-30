@@ -27,16 +27,18 @@ class MoviesPageComponent extends Component {
 
   render() {
     return(
-      <div className="movie-container">
-      {this.props.baseballMovies && Object.values(this.props.baseballMovies).map((movie, i) =>
-        <MoviePoster
-          key={movie.movie.movieData.title + `-` + i}
-          poster={movie.movie.movieData.poster_path}
-          movieTitle={movie.movie.movieData.title}
-          releaseDate={movie.movie.movieData.release_date}
-          runtime={movie.movie.movieData.runtime}
-          />
-        )}
+      <div className="outer-movie-container">
+        <div className="movie-container">
+        {this.props.baseballMovies && Object.values(this.props.baseballMovies).map((movie, i) =>
+          <MoviePoster
+            key={movie.movie.movieData.title + `-` + i}
+            poster={movie.movie.movieData.poster_path}
+            movieTitle={movie.movie.movieData.title}
+            releaseDate={movie.movie.movieData.release_date}
+            runtime={movie.movie.movieData.runtime}
+            />
+          )}
+        </div>
       </div>
     )
   }

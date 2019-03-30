@@ -12,7 +12,6 @@ const HomePage = () => {
     playsinline: 0,
     modestbranding: 1,
     iv_load_policy: 3,
-    width: '100%'
   }
 }
   return (

@@ -25,8 +25,6 @@ const App = ({store, persistor}) => (
         <div id="app">
           <Navigation />
 
-          <hr />
-
           <Route path={ROUTES.SIGN_IN} component={SignInPage} />
 
           <Route

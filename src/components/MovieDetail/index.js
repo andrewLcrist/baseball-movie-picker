@@ -44,7 +44,7 @@ class MovieDetail extends Component {
 
       const runtimeHours = Math.floor(this.state.movie.movieData.runtime/60)
       const runtimeHourLabel = runtimeHours > 1 ? 'hours' : 'hour'
-      const runtimeMinutes = this.state.movie.runtime % 60
+      const runtimeMinutes = this.state.movie.movieData.runtime % 60
 
     return(
       <div className="movie-modal">
@@ -56,10 +56,11 @@ class MovieDetail extends Component {
               </div>
               <div className="movie-modal-top-container">
                 <div className="movie-details-container">
-                  <div>Overview: {this.state.movie.movieData.overview}</div>
+                  <div>{this.state.movie.movieData.overview}</div>
                   <div>Director: {director}</div>
                 </div>
               </div>
+              <p className="watch-trailer-details">WATCH TRAILER</p>
               <div className="actor-card-container">
               {Object.values(this.state.movie.credits.cast).map(actor => <ActorCard actor={actor}/>)}
               </div>

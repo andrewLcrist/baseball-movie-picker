@@ -12,21 +12,22 @@ import * as ROUTES from '../../constants/routes';
 
 const Navigation = (props) => {
   return(
-  <div>
+  <div id="nav-container">
         {props.admin.userEmail ? <NavigationAuth /> : <NavigationNonAuth />}
+        <hr/>
   </div>)
 };
 
 const NavigationAuth = () => (
   <ul className="header">
     <li>
-      <Link to={ROUTES.HOME}>Home</Link>
+      <Link to={ROUTES.HOME}><p className="nav-link">Home</p></Link>
     </li>
     <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
+      <Link to={ROUTES.ACCOUNT}><p className="nav-link">Account</p></Link>
     </li>
     <li>
-      <Link to={ROUTES.MOVIES}>Movies</Link>
+      <Link to={ROUTES.MOVIES}><p className="nav-link">Movies</p></Link>
     </li>
     <li>
       <SignOutWrapper />
@@ -37,10 +38,10 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <ul className="header">
     <li>
-      <Link to={ROUTES.HOME}>Home Page</Link>
+      <Link to={ROUTES.HOME}>Home <p className="nav-link">Page</p></Link>
     </li>
     <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+      <Link to={ROUTES.SIGN_IN}>Sign <p className="nav-link">In</p></Link>
     </li>
   </ul>
 );

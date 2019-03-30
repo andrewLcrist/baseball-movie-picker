@@ -48,6 +48,7 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
+      <div className="signin-container">
       <form onSubmit={this.onSubmit}>
         <input
           name="email"
@@ -62,6 +63,7 @@ class PasswordForgetFormBase extends Component {
 
         {error && <p>{error.message}</p>}
       </form>
+      </div>
     );
   }
 }
